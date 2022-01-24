@@ -6,7 +6,7 @@ import { CopyIcon } from '@chakra-ui/icons';
 import emojis from '@/assets/emojis.json';
 
 function App() {
-  const [value, setValue] = useState<string>('b');
+  const [value, setValue] = useState<string>('');
   const [withEmojiValue, setWithEmojiValue] = useState<string>('');
   const [emoji, setEmoji] = useState<string>('bug');
   const [isCopied, setIsCopied] = useState<boolean>(false);
