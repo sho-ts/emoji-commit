@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import Provider from '@/providers';
 import { Box, Textarea, Container, HStack, Select, Button, Text, IconButton } from '@chakra-ui/react';
 import { Header } from '@/components';
@@ -8,8 +8,6 @@ function App() {
   const [value, setValue] = useState<string>('');
   const [withEmojiValue, setWithEmojiValue] = useState<string>('');
   const [emoji, setEmoji] = useState<string>('bug');
-  const emojiRef = useRef<string>(emoji);
-  emojiRef.current = emoji;
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
   const options = [
@@ -65,7 +63,6 @@ function App() {
 
   const onChangeInputValue = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
-    setWithEmojiValue(`:${emojiRef.current}: ${e.target.value}`);
     setIsCopied(false);
   }, []);
 
@@ -76,6 +73,10 @@ function App() {
   }
 
   const deleteValue = () => setValue('');
+
+  useEffect(() => {
+    setWithEmojiValue(`:${emoji}: ${value}`);
+  }, [value, emoji])
 
   return (
     <Box minH="100vh">
